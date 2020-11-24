@@ -71,6 +71,9 @@
     "exsyst/swagger": {
         "version": "v0.4.1"
     },
+    "fabpot/goutte": {
+        "version": "v3.2.3"
+    },
     "friendsofsymfony/rest-bundle": {
         "version": "2.2",
         "recipe": {
@@ -82,6 +85,15 @@
     },
     "fzaninotto/faker": {
         "version": "v1.8.0"
+    },
+    "guzzlehttp/guzzle": {
+        "version": "6.5.5"
+    },
+    "guzzlehttp/promises": {
+        "version": "1.4.0"
+    },
+    "guzzlehttp/psr7": {
+        "version": "1.7.0"
     },
     "hautelook/alice-bundle": {
         "version": "2.1",
@@ -128,6 +140,9 @@
     "ocramius/proxy-manager": {
         "version": "2.2.2"
     },
+    "php": {
+        "version": "7.3"
+    },
     "phpdocumentor/reflection-common": {
         "version": "1.0.1"
     },
@@ -143,11 +158,17 @@
     "psr/container": {
         "version": "1.0.0"
     },
+    "psr/http-message": {
+        "version": "1.0.1"
+    },
     "psr/log": {
         "version": "1.1.0"
     },
     "psr/simple-cache": {
         "version": "1.0.1"
+    },
+    "ralouphie/getallheaders": {
+        "version": "3.0.3"
     },
     "sebastian/comparator": {
         "version": "3.0.2"
@@ -193,6 +214,9 @@
     },
     "symfony/contracts": {
         "version": "v1.0.2"
+    },
+    "symfony/css-selector": {
+        "version": "v4.2.12"
     },
     "symfony/debug": {
         "version": "v4.2.1"
@@ -286,6 +310,12 @@
     },
     "symfony/polyfill-intl-icu": {
         "version": "v1.10.0"
+    },
+    "symfony/polyfill-intl-idn": {
+        "version": "v1.20.0"
+    },
+    "symfony/polyfill-intl-normalizer": {
+        "version": "v1.20.0"
     },
     "symfony/polyfill-mbstring": {
         "version": "v1.10.0"

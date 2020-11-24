@@ -34,3 +34,9 @@ docker-compose up -d
 docker-compose exec --user=application web composer install
 ```
 
+#### Extract Cpu
+
+```bash
+php bin/console app:scraping
+```
+
