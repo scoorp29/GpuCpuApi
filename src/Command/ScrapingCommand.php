@@ -28,6 +28,9 @@ class ScrapingCommand extends Command
         $scraping = $this->container->get(Scraping::class);
         $scraping->scrapAMD();
         $scraping->scrapIntel();
+        $scraping->scrapGpuAMD();
+        $scraping->scrapGpuIntel();
+        $scraping->scrapGpuNvidia();
 
         $io->success('Fin de la commande');
     }

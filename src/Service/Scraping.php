@@ -4,6 +4,7 @@
 namespace App\Service;
 
 use App\Entity\Cpu;
+use App\Entity\Gpu;
 use Doctrine\ORM\EntityManagerInterface;
 use Goutte\Client;
 
@@ -92,117 +93,115 @@ class Scraping
         return true;
     }
 
-    public function scrapCguAMD()
-        {
-            $now = new \DateTime();
-            $yearNow = (int)$now->format('Y');
-            $start = 2018;
-            $newClient = new Client();
-            while ($start <= $yearNow) {
-                $crawler = $newClient->request('GET', "https://www.techpowerup.com/gpu-specs/?mfgr=AMD&released={$start}&sort=released");
-    
-                $crawler->filter('tr')->each(function ($node) {
-                    $string = ltrim($node->filter('tr')->text());
-                    $array = explode("\n", $string);
-                    if (count($array) >= 10) {
-                        if ($array[0] != 'Name') {
-                            $cg = $this->em->getRepository(Cpu::class)->findBy(['product_name' => $array[0]]);
-                            if (!$cg) {
-                                $newcg = new Cpu();
-                                $newcg->setProductName($array[0]);
-                                $newcg->setGPUChip($array[2]);
-                                $newcg->setCompany('AMD');
-                                $newcg->setReleased($array[3]);
-                                $newcg->setBus($array[4]);
-                                $newcg->setMemory($array[5]);
-                                $newcg->setGPUclock($array[6]);
-                                $newcg->setMemoryclock($array[7]);
-                                $newcg->setShaders($array[8]);
-                                $this->em->persist($newcg);
-                            }
+    public function scrapGpuAMD()
+    {
+        $now = new \DateTime();
+        $yearNow = (int)$now->format('Y');
+        $start = 2018;
+        $newClient = new Client();
+        while ($start <= $yearNow) {
+            $crawler = $newClient->request('GET', "https://www.techpowerup.com/gpu-specs/?mfgr=AMD&released={$start}&sort=released");
+
+            $crawler->filter('tr')->each(function ($node) {
+                $string = ltrim($node->filter('tr')->text());
+                $array = explode("\n", $string);
+                if (count($array) >= 10) {
+                    if ($array[0] != 'Name') {
+                        $cg = $this->em->getRepository(Gpu::class)->findBy(['product_name' => $array[0]]);
+                        if (!$cg) {
+                            $newcg = new Gpu();
+                            $newcg->setProductName($array[0]);
+                            $newcg->setGPUChip($array[4]);
+                            $newcg->setCompany('AMD');
+                            $newcg->setReleaseDate($array[7]);
+                            $newcg->setBus($array[8]);
+                            $newcg->setMemory($array[9]);
+                            $newcg->setGPUclock($array[10]);
+                            $newcg->setMemoryclock($array[11]);
+                            $newcg->setShaders($array[12]);
+                            $this->em->persist($newcg);
                         }
                     }
-                });
-                $start++;
-            }
-            $this->em->flush();
-            return true;
+                }
+            });
+            $start++;
         }
-    
-        public function scrapCguIntel()
-        {
-            $now = new \DateTime();
-            $yearNow = (int)$now->format('Y');
-            $start = 2018;
-            $newClient = new Client();
-            while ($start <= $yearNow) {
-    
-                $crawler = $newClient->request('GET', "https://www.techpowerup.com/cpu-specs/?mfgr=Intel&released={$start}&sort=released");
-                $crawler->filter('tr')->each(function ($node) {
-                    $string = ltrim($node->filter('tr')->text());
-                    $array = explode("\n", $string);
-                    if (count($array) >= 10) {
-                        if ($array[0] != 'Name') {
-                            $cg = $this->em->getRepository(Cpu::class)->findBy(['product_name' => $array[0]]);
-                            if (!$cg) {
-                                $newcg = new Cpu();
-                                $newcg->setProductName($array[0]);
-                                $newcg->setGPUChip($array[2]);
-                                $newcg->setCompany('Intel');
-                                $newcg->setReleased($array[3]);
-                                $newcg->setBus($array[4]);
-                                $newcg->setMemory($array[5]);
-                                $newcg->setGPUclock($array[6]);
-                                $newcg->setMemoryclock($array[7]);
-                                $newcg->setShaders($array[8]);
-                                $this->em->persist($newcg);
-                            }
+        $this->em->flush();
+        return true;
+    }
+
+    public function scrapGpuIntel()
+    {
+        $now = new \DateTime();
+        $yearNow = (int)$now->format('Y');
+        $start = 2018;
+        $newClient = new Client();
+        while ($start <= $yearNow) {
+
+            $crawler = $newClient->request('GET', "https://www.techpowerup.com/gpu-specs/?mfgr=Intel&released={$start}&sort=released");
+            $crawler->filter('tr')->each(function ($node) {
+                $string = ltrim($node->filter('tr')->text());
+                $array = explode("\n", $string);
+                if (count($array) >= 10) {
+                    if ($array[0] != 'Name') {
+                        $cg = $this->em->getRepository(Gpu::class)->findBy(['product_name' => $array[0]]);
+                        if (!$cg) {
+                            $newcg = new Gpu();
+                            $newcg->setProductName($array[0]);
+                            $newcg->setGPUChip($array[4]);
+                            $newcg->setCompany('Intel');
+                            $newcg->setReleaseDate($array[7]);
+                            $newcg->setBus($array[8]);
+                            $newcg->setMemory($array[9]);
+                            $newcg->setGPUclock($array[10]);
+                            $newcg->setMemoryclock($array[11]);
+                            $newcg->setShaders($array[12]);
+                            $this->em->persist($newcg);
                         }
                     }
-                });
-                $start++;
-            }
-            $this->em->flush();
-            return true;
+                }
+            });
+            $start++;
         }
-    
-        public function scrapCguIntel()
-        {
-            $now = new \DateTime();
-            $yearNow = (int)$now->format('Y');
-            $start = 2018;
-            $newClient = new Client();
-            while ($start <= $yearNow) {
-    
-                $crawler = $newClient->request('GET', "https://www.techpowerup.com/cpu-specs/?mfgr=NVIDIA&released={$start}&sort=released");
-                $crawler->filter('tr')->each(function ($node) {
-                    $string = ltrim($node->filter('tr')->text());
-                    $array = explode("\n", $string);
-                    if (count($array) >= 10) {
-                        if ($array[0] != 'Name') {
-                            $cg = $this->em->getRepository(Cpu::class)->findBy(['product_name' => $array[0]]);
-                            if (!$cg) {
-                                $newcg = new Cpu();
-                                $newcg->setProductName($array[0]);
-                                $newcg->setGPUChip($array[2]);
-                                $newcg->setCompany('NVIDIA');
-                                $newcg->setReleased($array[3]);
-                                $newcg->setBus($array[4]);
-                                $newcg->setMemory($array[5]);
-                                $newcg->setGPUclock($array[6]);
-                                $newcg->setMemoryclock($array[7]);
-                                $newcg->setShaders($array[8]);
-                                $this->em->persist($newcg);
-                            }
+        $this->em->flush();
+        return true;
+    }
+
+    public function scrapGpuNvidia()
+    {
+        $now = new \DateTime();
+        $yearNow = (int)$now->format('Y');
+        $start = 2018;
+        $newClient = new Client();
+        while ($start <= $yearNow) {
+
+            $crawler = $newClient->request('GET', "https://www.techpowerup.com/gpu-specs/?mfgr=NVIDIA&released={$start}&sort=released");
+            $crawler->filter('tr')->each(function ($node) {
+                $string = ltrim($node->filter('tr')->text());
+                $array = explode("\n", $string);
+                if (count($array) >= 10) {
+                    if ($array[0] != 'Name') {
+                        $cg = $this->em->getRepository(Gpu::class)->findBy(['product_name' => $array[0]]);
+                        if (!$cg) {
+                            $newcg = new Gpu();
+                            $newcg->setProductName($array[0]);
+                            $newcg->setGPUChip($array[4]);
+                            $newcg->setCompany('NVIDIA');
+                            $newcg->setReleaseDate($array[7]);
+                            $newcg->setBus($array[8]);
+                            $newcg->setMemory($array[9]);
+                            $newcg->setGPUclock($array[10]);
+                            $newcg->setMemoryclock($array[11]);
+                            $newcg->setShaders($array[12]);
+                            $this->em->persist($newcg);
                         }
                     }
-                });
-                $start++;
-            }
-            $this->em->flush();
-            return true;
+                }
+            });
+            $start++;
         }
-    
+        $this->em->flush();
+        return true;
     }
 
 }
