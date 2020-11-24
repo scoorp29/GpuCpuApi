@@ -18,64 +18,76 @@ class Scraping
 
     public function scrapAMD()
     {
+        $now = new \DateTime();
+        $yearNow = (int)$now->format('Y');
+        $start = 2018;
         $newClient = new Client();
-        $crawler = $newClient->request('GET', 'https://www.techpowerup.com/cpu-specs/?mfgr=AMD&sort=released');
+        while ($start <= $yearNow) {
+            $crawler = $newClient->request('GET', "https://www.techpowerup.com/cpu-specs/?mfgr=AMD&released={$start}&sort=released");
 
-        $crawler->filter('tr')->each(function ($node) {
-            $string = ltrim($node->filter('tr')->text());
-            $array = explode("\n", $string);
-            if (count($array) >= 10) {
-                if ($array[0] != 'Name') {
-                    $proc = $this->em->getRepository(Cpu::class)->findBy(['product_name' => $array[0]]);
-                    if (!$proc) {
-                        $newProc = new Cpu();
-                        $newProc->setProductName($array[0]);
-                        $newProc->setCodeName($array[2]);
-                        $newProc->setCompany('AMD');
-                        $newProc->setCores($array[3]);
-                        $newProc->setClock($array[4]);
-                        $newProc->setSocket($array[5]);
-                        $newProc->setProcess($array[6]);
-                        $newProc->setL3Cache($array[7]);
-                        $newProc->setTdp($array[8]);
-                        $newProc->setReleased($array[9]);
-                        $this->em->persist($newProc);
+            $crawler->filter('tr')->each(function ($node) {
+                $string = ltrim($node->filter('tr')->text());
+                $array = explode("\n", $string);
+                if (count($array) >= 10) {
+                    if ($array[0] != 'Name') {
+                        $proc = $this->em->getRepository(Cpu::class)->findBy(['product_name' => $array[0]]);
+                        if (!$proc) {
+                            $newProc = new Cpu();
+                            $newProc->setProductName($array[0]);
+                            $newProc->setCodeName($array[2]);
+                            $newProc->setCompany('AMD');
+                            $newProc->setCores($array[3]);
+                            $newProc->setClock($array[4]);
+                            $newProc->setSocket($array[5]);
+                            $newProc->setProcess($array[6]);
+                            $newProc->setL3Cache($array[7]);
+                            $newProc->setTdp($array[8]);
+                            $newProc->setReleased($array[9]);
+                            $this->em->persist($newProc);
+                        }
                     }
                 }
-            }
-        });
+            });
+            $start++;
+        }
         $this->em->flush();
         return true;
     }
 
     public function scrapIntel()
     {
+        $now = new \DateTime();
+        $yearNow = (int)$now->format('Y');
+        $start = 2018;
         $newClient = new Client();
-        $crawler = $newClient->request('GET', 'https://www.techpowerup.com/cpu-specs/?mfgr=Intel&sort=released');
+        while ($start <= $yearNow) {
 
-        $crawler->filter('tr')->each(function ($node) {
-            $string = ltrim($node->filter('tr')->text());
-            $array = explode("\n", $string);
-            if (count($array) >= 10) {
-                if ($array[0] != 'Name') {
-                    $proc = $this->em->getRepository(Cpu::class)->findBy(['product_name' => $array[0]]);
-                    if (!$proc) {
-                        $newProc = new Cpu();
-                        $newProc->setProductName($array[0]);
-                        $newProc->setCodeName($array[2]);
-                        $newProc->setCompany('Intel');
-                        $newProc->setCores($array[3]);
-                        $newProc->setClock($array[4]);
-                        $newProc->setSocket($array[5]);
-                        $newProc->setProcess($array[6]);
-                        $newProc->setL3Cache($array[7]);
-                        $newProc->setTdp($array[8]);
-                        $newProc->setReleased($array[9]);
-                        $this->em->persist($newProc);
+            $crawler = $newClient->request('GET', "https://www.techpowerup.com/cpu-specs/?mfgr=Intel&released={$start}&sort=released");
+            $crawler->filter('tr')->each(function ($node) {
+                $string = ltrim($node->filter('tr')->text());
+                $array = explode("\n", $string);
+                if (count($array) >= 10) {
+                    if ($array[0] != 'Name') {
+                        $proc = $this->em->getRepository(Cpu::class)->findBy(['product_name' => $array[0]]);
+                        if (!$proc) {
+                            $newProc = new Cpu();
+                            $newProc->setProductName($array[0]);
+                            $newProc->setCodeName($array[2]);
+                            $newProc->setCompany('Intel');
+                            $newProc->setCores($array[3]);
+                            $newProc->setClock($array[4]);
+                            $newProc->setSocket($array[5]);
+                            $newProc->setProcess($array[6]);
+                            $newProc->setL3Cache($array[7]);
+                            $newProc->setTdp($array[8]);
+                            $newProc->setReleased($array[9]);
+                            $this->em->persist($newProc);
+                        }
                     }
                 }
-            }
-        });
+            });
+            $start++;
+        }
         $this->em->flush();
         return true;
     }
