@@ -24,6 +24,11 @@ class GpuManager
         return $this->gpuRepository->findAll();
     }
 
+    public function getCount()
+    {
+        return $this->gpuRepository->getGpuByCompany();
+    }
+
     //We test if all the conditions are fulfilled (Assert in Entity / User)
     public function validateMyPostAssert(ConstraintViolationListInterface $validationErrors)
     {

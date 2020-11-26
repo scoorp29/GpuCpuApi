@@ -58,6 +58,39 @@ class GpuController extends AbstractFOSRestController
         return $this->view($allGpu, 200);
     }
 
+    /**
+     * @Rest\Get("/api/gpu/count")
+     * @Rest\View(serializerGroups={"gpu"})
+     * @SWG\Get(
+     *      tags={"GPU"},
+     *      @SWG\Response(
+     *             response=200,
+     *             description="Success",
+     *         ),
+     *     @SWG\Response(
+     *             response=204,
+     *             description="No Content",
+     *         ),
+     *      @SWG\Response(
+     *             response=400,
+     *             description="Bad Request",
+     *         ),
+     *      @SWG\Response(
+     *             response=403,
+     *             description="Forbiden",
+     *         ),
+     *      @SWG\Response(
+     *             response=404,
+     *             description="Not Found",
+     *         ),
+     *)
+     */
+    public function getApiGpuCount()
+    {
+        $allGpu = $this->gpuManager->getCount();
+        return $this->view($allGpu, 200);
+    }
+
     //One Gpu
 
     /**

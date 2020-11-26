@@ -27,6 +27,39 @@ class CpuController extends AbstractFOSRestController
     //List of all cpu
 
     /**
+     * @Rest\Get("/api/cpu/count")
+     * @Rest\View(serializerGroups={"cpu"})
+     * @SWG\Get(
+     *      tags={"CPU"},
+     *      @SWG\Response(
+     *             response=200,
+     *             description="Success",
+     *         ),
+     *     @SWG\Response(
+     *             response=204,
+     *             description="No Content",
+     *         ),
+     *      @SWG\Response(
+     *             response=400,
+     *             description="Bad Request",
+     *         ),
+     *      @SWG\Response(
+     *             response=403,
+     *             description="Forbiden",
+     *         ),
+     *      @SWG\Response(
+     *             response=404,
+     *             description="Not Found",
+     *         ),
+     *)
+     */
+    public function getApiCpuCount()
+    {
+        $allCpu = $this->cpuManager->getCount();
+        return $this->view($allCpu, 200);
+    }
+
+    /**
      * @Rest\Get("/api/cpu")
      * @Rest\View(serializerGroups={"cpu"})
      * @SWG\Get(
