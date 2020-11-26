@@ -1,0 +1,13 @@
+:root
+{
+    --wcr-color-neutral-darker: #404852;
+    --wcr-color-neutral-dark: #666D75;
+    --wcr-color-neutral: #C2C5C8;
+    --wcr-color-neutral-light: #f9f9f9;
+    --wcr-color-neutral-lighter: #FFFFFF;
+
+    --wcr-color-primary: #009aff;
+
+    --wcr-color-secondary: #87b201;
+    --wcr-color-secondary-dark: #78ab4e;
+}

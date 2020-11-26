@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <title>CPU / GPU List</title>
+    <meta name="language" content="en">
+
+    <link rel="icon" type="image/svg+xml" href="asset/img/cg.svg">
+    <link rel="icon" type="image/svg+xml" href="asset/img/cg.png">
+    <link rel="alternate icon" href="asset/img/cg.ico">
+    <link rel="mask-icon" href="asset/img/cg.svg" color="#666d75">
+
+    <link rel="stylesheet"
+        href="https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,400;0,700;1,400;1,700&display=swap">
+
+    <link rel="stylesheet" href="https://use.fontawesome.com/6f31b5711a.css">
+    <script src="https://use.fontawesome.com/96aafb7a38.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.tablesorter/2.28.14/js/jquery.tablesorter.min.js"></script>
+
+    <!-- <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.10.22/css/jquery.dataTables.min.css">
+    <script src="https://cdn.datatables.net/1.10.22/js/jquery.dataTables.min.js
+    "></script> -->
+
+    <link rel="stylesheet" href="asset/css/color.css">
+    <link rel="stylesheet" href="asset/css/theme.css">
+    <link rel="stylesheet" href="asset/css/style.css">
+
+</head>
+
+<body>
+    <div class="page">
+        <header class="header block">
+            <h1 class="title">CPU / GPU List</h1>
+        </header>
+        <nav class="navbar" id="navbar">
+            <ul class="list">
+                <li class="item">
+                    <a href="/" class="link active">Home</a>
+                </li>
+                <li class="item">
+                    <a href="/CPU" class="link">CPU</a>
+                </li>
+                <li class="item">
+                    <a href="/GPU" class="link">GPU</a>
+                </li>
+            </ul>
+        </nav>
+        <main class="main">
+                <h2 class="title">CPU List</h2>
+                <div class="table-wrapper">
+                    <table id="cpu-table"></table>
+                </div>
+                <h2 class="title">GPU List</h2>
+                <div class="table-wrapper">
+                    <table id="gpu-table"></table>
+                </div>
+        </main>
+        <footer class="footer block">
+            <p>Data scraped from <a class="link" target="_blank"
+                    href="https://www.techpowerup.com/cpu-specs/?mfgr=AMD&sort=released">TechPowerUp <i
+                        class="fa fa-external-link"></i></a></p>
+
+            <p><a class="link" target="_blank" href="https://iconscout.com/icons/cg">Cg Icon <i
+                        class="fa fa-external-link"></i></a> by <a class="link" target="_blank"
+                    href="https://iconscout.com/contributors/icons8">Icons8 <i class="fa fa-external-link"></i></a></p>
+            <!-- https://codepen.io/jakestuts/full/tGpju/ -->
+<!-- 
+            <p>Table based on <a class="link" target="_blank" href="https://codepen.io/jakestuts/full/tGpju/">Sortable
+                    Tabular Data <i class="fa fa-external-link"></i></a></p> -->
+        </footer>
+    </div>
+    <script src="asset/js/script.js" defer></script>
+</body>
+
+</html>

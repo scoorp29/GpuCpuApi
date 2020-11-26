@@ -1,0 +1,82 @@
+.navbar
+{
+    background-color: var(--wcr-color-neutral-darker);
+}
+.header
+{
+    background-color: var(--wcr-color-neutral-dark);
+}
+.main
+{
+    background-color: var(--wcr-color-neutral-lighter);
+}
+.footer
+{
+    background-color: var(--wcr-color-neutral-light);
+}
+
+.header .title
+{
+    color: var(--wcr-color-neutral-lighter);
+}
+.subtitle,
+.link
+{
+    color: var(--wcr-color-neutral);
+}
+
+.title
+{
+    color: var(--wcr-color-neutral-darker);
+}
+
+.link:hover,
+.active
+{
+    color: var(--wcr-color-primary);
+}
+
+.breadcrumb
+{
+    border-color: var(--wcr-color-neutral);
+}
+
+/* table */
+
+.table .table-header,
+.table .table-header .cell
+{
+    background-color: var(--wcr-color-neutral-darker);
+    color: var(--wcr-color-neutral);
+}
+
+.table .table-header .cell:hover,
+.table .table-header .cell.tablesorter-headerAsc,
+.table .table-header .cell.tablesorter-headerDesc
+{
+    color: var(--wcr-color-primary);
+}
+
+.table .table-content .row:nth-child(even)
+{
+    color:var(--wcr-color-primary);
+}
+
+@media only screen and (max-width: 700px)
+{
+    .table-wrapper td
+    {
+        background: #FFF;
+    }
+
+    .table-wrapper td:nth-child(odd)
+    {
+        background-color: #eee;
+    }
+
+    .table-wrapper td::before
+    {
+        background-color: var(--wcr-color-neutral-darker);
+        color: var(--wcr-color-neutral)
+    }
+}
