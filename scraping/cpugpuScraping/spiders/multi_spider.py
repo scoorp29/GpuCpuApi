@@ -3,7 +3,7 @@ import scrapy
 from scrapy.http import JsonRequest
 from scrapy.crawler import CrawlerProcess
 
-apikey = 55671
+apikey = 90294
 
 class CpusSpider(scrapy.Spider):
     name = "cpus"
