@@ -41,12 +41,6 @@ class Gpu
      * @ORM\Column(type="string", length=255, nullable=true)
      * @Groups("gpu")
      */
-    private $release_date;
-
-    /**
-     * @ORM\Column(type="string", length=255, nullable=true)
-     * @Groups("gpu")
-     */
     private $bus;
 
     /**
@@ -54,7 +48,6 @@ class Gpu
      * @Groups("gpu")
      */
     private $memory;
-
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
@@ -68,11 +61,11 @@ class Gpu
      */
     private $memory_clock;
 
-    /**
+     /**
      * @ORM\Column(type="string", length=255, nullable=true)
      * @Groups("gpu")
      */
-    private $shaders;
+    private $release_date;
 
     public function getId(): ?int
     {
@@ -111,18 +104,6 @@ class Gpu
     public function setGpuChip(?string $gpu_chip): self
     {
         $this->gpu_chip = $gpu_chip;
-
-        return $this;
-    }
-
-    public function getReleaseDate(): ?string
-    {
-        return $this->release_date;
-    }
-
-    public function setReleaseDate(?string $release_date): self
-    {
-        $this->release_date = $release_date;
 
         return $this;
     }
@@ -175,14 +156,14 @@ class Gpu
         return $this;
     }
 
-    public function getShaders(): ?string
+    public function getReleaseDate(): ?string
     {
-        return $this->shaders;
+        return $this->release_date;
     }
 
-    public function setShaders(?string $shaders): self
+    public function setReleaseDate(?string $release_date): self
     {
-        $this->shaders = $shaders;
+        $this->release_date = $release_date;
 
         return $this;
     }
