@@ -144,7 +144,6 @@ class Scraping
                             $newcg->setMemory(ltrim($array[9]));
                             $newcg->setGPUclock(ltrim($array[10]));
                             $newcg->setMemoryclock(ltrim($array[11]));
-                            $newcg->setShaders(ltrim($array[12]));
                             $this->em->persist($newcg);
                         }
                     }
@@ -190,7 +189,6 @@ class Scraping
                             $newcg->setMemory(ltrim($array[9]));
                             $newcg->setGPUclock(ltrim($array[10]));
                             $newcg->setMemoryclock(ltrim($array[11]));
-                            $newcg->setShaders(ltrim($array[12]));
                             $this->em->persist($newcg);
                         }
                     }
@@ -236,7 +234,6 @@ class Scraping
                             $newcg->setMemory(ltrim($array[9]));
                             $newcg->setGPUclock(ltrim($array[10]));
                             $newcg->setMemoryclock(ltrim($array[11]));
-                            $newcg->setShaders(ltrim($array[12]));
                             $this->em->persist($newcg);
                         }
                     }
