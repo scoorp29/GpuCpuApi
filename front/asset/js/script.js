@@ -153,6 +153,18 @@ function generateTable (table, dataList) {
     table.appendChild(tableContent)
 }
 
+function init () {
+    $.ajaxSetup({
+        // crossDomain: true,
+        // crossOrigin: true,
+        // url: 'https://api-cpu-gpu.itcommunity.fr/api/',
+        // global: false,
+        // contentType: 'application/json; charset=utf-8'
+        contentType: 'application/json; charset=utf-8',
+        dataType: 'json',
+    })
+}
+
 function fillCpu () {
     let cpuTable = document.getElementById('cpu-table')
     let cpuList
@@ -160,9 +172,7 @@ function fillCpu () {
         url: 'https://api-cpu-gpu.itcommunity.fr/api/cpu',
         type: 'GET',
         method: 'GET',
-        dataType: 'jsonp',
-    }).done(response => {
-        cpuList = JSON.stringify(response)
+    }).done(cpuList => {
         generateTable(cpuTable, cpuList)
     }).fail( (jqXHR, textStatus, errorThrown) => {
         console.warn('AJAX error /api/cpu')
@@ -174,28 +184,31 @@ function fillCpu () {
 function fillGpu () {
     let gpuTable = document.getElementById('gpu-table')
     let gpuList
-
     $.ajax({
         url: 'https://api-cpu-gpu.itcommunity.fr/api/gpu',
         type: 'GET',
         method: 'GET',
-        dataType: 'jsonp',
-    }).done(response => {
-        cpuList = JSON.stringify(response)
-        generateTable(gpuTable, cpuList)
+    }).done(gpuList => {
+        generateTable(gpuTable, gpuList)
     }).fail( (jqXHR, textStatus, errorThrown) => {
         console.warn('AJAX error /api/gpu')
-        gpuList = getGpuList()
+        gpuList = getCpuList()
         generateTable(gpuTable, gpuList)
     })
 }
 
-function init () {
-    $.ajaxSetup({
-        crossDomain: true,
-        crossOrigin: true,
-        url: 'https://api-cpu-gpu.itcommunity.fr/api/',
-        global: false,
+function fillCpuCount () {
+    let element = document.getElementById('cpu-count')
+    let cpuCountList
+    $.ajax({
+        url: 'https://api-cpu-gpu.itcommunity.fr/api/cpu/count',
+        type: 'GET',
+        method: 'GET',
+    }).done(response => {
+        cpuCountList = JSON.stringify(response)
+        console.log(cpuCountList)
+    }).fail( (jqXHR, textStatus, errorThrown) => {
+        console.warn('AJAX error /api/cpu-count')
     })
 }
 
@@ -203,6 +216,7 @@ function onLoad () {
     init()
     fillCpu()
     fillGpu()
+    fillCpuCount()
 
     ;['#cpu-table', '#gpu-table'].map(selector => {
         $(selector).tablesorter()
