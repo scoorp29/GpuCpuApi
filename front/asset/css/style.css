@@ -25,6 +25,20 @@ body
     padding-bottom: 5vh;
 }
 
+.graph-row
+{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    align-items: stretch;
+}
+
+.w-100
+{
+    width: 100%;
+    /* flex: 2 1 auto; */
+}
+
 /* navbar layout */
 .navbar
 {

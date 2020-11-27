@@ -61,6 +61,40 @@ function getGpuList () {
     return generateList(item)
 }
 
+function getCpuCountList () {
+    const item = [
+        {
+          "company": "AMD",
+          "count": "134"
+        },
+        {
+          "company": "Intel",
+          "count": "171"
+        }
+      ]
+    return item
+}
+
+function getGpuCountList () {
+    const item = [
+        {
+          "company": "AMD",
+          "count": "131"
+        },
+        {
+          "company": "Intel",
+          "count": "31"
+        },
+        {
+          "company": "NVIDIA",
+          "count": "139"
+        }
+    ]
+    return item
+}
+
+
+
 function wrapContent (element, tagName) {
     let wrapper = document.createElement(tagName)
     wrapper.classList.add('wrapper')
@@ -172,12 +206,14 @@ function fillCpu () {
         url: 'https://api-cpu-gpu.itcommunity.fr/api/cpu',
         type: 'GET',
         method: 'GET',
-    }).done(cpuList => {
-        generateTable(cpuTable, cpuList)
-    }).fail( (jqXHR, textStatus, errorThrown) => {
+    }).done(response => {
+        cpuList = response
+    }).fail( _ => {
         console.warn('AJAX error /api/cpu')
         cpuList = getCpuList()
+    }).always(_=> {
         generateTable(cpuTable, cpuList)
+        $('#cpu-table').tablesorter()
     })
 }
 
@@ -188,39 +224,144 @@ function fillGpu () {
         url: 'https://api-cpu-gpu.itcommunity.fr/api/gpu',
         type: 'GET',
         method: 'GET',
-    }).done(gpuList => {
-        generateTable(gpuTable, gpuList)
-    }).fail( (jqXHR, textStatus, errorThrown) => {
+    }).done(response => {
+        gpuList = response
+    }).fail( _ => {
         console.warn('AJAX error /api/gpu')
-        gpuList = getCpuList()
+        gpuList = getGpuList()
+    }).always(_=> {
         generateTable(gpuTable, gpuList)
+        $('#gpu-table').tablesorter()
     })
 }
 
 function fillCpuCount () {
-    let element = document.getElementById('cpu-count')
     let cpuCountList
     $.ajax({
         url: 'https://api-cpu-gpu.itcommunity.fr/api/cpu/count',
         type: 'GET',
         method: 'GET',
-    }).done(response => {
-        cpuCountList = JSON.stringify(response)
-        console.log(cpuCountList)
-    }).fail( (jqXHR, textStatus, errorThrown) => {
+    }).done(cpuCountList => {
+        buildCpuCountGraph(cpuCountList)
+    }).fail( _ => {
         console.warn('AJAX error /api/cpu-count')
+        cpuCountList = getCpuCountList()
+        buildCpuCountGraph(cpuCountList)
+    })
+}
+
+function fillGpuCount () {
+    let gpuCountList
+    $.ajax({
+        url: 'https://api-cpu-gpu.itcommunity.fr/api/gpu/count',
+        type: 'GET',
+        method: 'GET',
+    }).done(gpuCountList => {
+        buildGpuCountGraph(gpuCountList)
+    }).fail( _ => {
+        console.warn('AJAX error /api/gpu-count')
+        gpuCountList = getGpuCountList()
+        buildGpuCountGraph(gpuCountList)
+    })
+}
+
+function buildCpuCountGraph (gpuCountList) {
+    let element = document.getElementById('cpu-count')
+    let context = element.getContext('2d')
+    let chart = new Chart(context, {
+        type: 'bar',
+        data: {
+            labels: gpuCountList.map(element => element.company),
+            datasets: [
+                {
+                    label: '# of CPU.',
+                    data: gpuCountList.map(element => element.count),
+                    backgroundColor: [
+                        'rgba(253, 0, 2, 0.2)',
+                        'rgba(0, 113, 197, 0.2)',
+                    ],
+                    borderColor: [
+                        'rgba(253, 0, 2, 1)',
+                        'rgba(0, 113, 197, 1)',
+                    ],
+                    borderWidth: 1
+                },
+            ],
+        },
+        options: {
+            scales: {
+                yAxes: [{
+                    ticks: {
+                        beginAtZero: true
+                    }
+                }]
+            },
+            legend: {
+                display: false
+            },
+            tooltips: {
+                callbacks: {
+                   label: function(tooltipItem) {
+                          return tooltipItem.yLabel;
+                   }
+                }
+            }
+        }
+    })
+}
+
+function buildGpuCountGraph (gpuCountList) {
+    let element = document.getElementById('gpu-count')
+    let context = element.getContext('2d')
+    let chart = new Chart(context, {
+        type: 'bar',
+        data: {
+            labels: gpuCountList.map(element => element.company),
+            datasets: [{
+                label: '# of GPU.',
+                data: gpuCountList.map(element => element.count),
+                backgroundColor: [
+                    'rgba(253, 0, 2, 0.2)',
+                    'rgba(0, 113, 197, 0.2)',
+                    'rgba(116, 183, 27, 0.2)',
+                ],
+                borderColor: [
+                    'rgba(253, 0, 2, 1)',
+                    'rgba(0, 113, 197, 1)',
+                    'rgba(116, 183, 27, 1)',
+                ],
+                borderWidth: 1,
+            }],
+        },
+        options: {
+            scales: {
+                yAxes: [{
+                    ticks: {
+                        beginAtZero: true
+                    }
+                }]
+            },
+            legend: {
+                display: false
+            },
+            tooltips: {
+                callbacks: {
+                   label: function(tooltipItem) {
+                          return tooltipItem.yLabel;
+                   }
+                }
+            }
+        }
     })
 }
 
 function onLoad () {
     init()
+
     fillCpu()
     fillGpu()
     fillCpuCount()
-
-    ;['#cpu-table', '#gpu-table'].map(selector => {
-        $(selector).tablesorter()
-    })
+    fillGpuCount()
 }
 
 document.addEventListener('DOMContentLoaded', onLoad)
