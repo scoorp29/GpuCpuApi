@@ -314,7 +314,7 @@ function buildGpuCountGraph (gpuCountList) {
     let element = document.getElementById('gpu-count')
     let context = element.getContext('2d')
     let chart = new Chart(context, {
-        type: 'bar',
+        type: 'doughnut',
         data: {
             labels: gpuCountList.map(element => element.company),
             datasets: [{
@@ -344,13 +344,6 @@ function buildGpuCountGraph (gpuCountList) {
             legend: {
                 display: false
             },
-            tooltips: {
-                callbacks: {
-                   label: function(tooltipItem) {
-                          return tooltipItem.yLabel;
-                   }
-                }
-            }
         }
     })
 }
