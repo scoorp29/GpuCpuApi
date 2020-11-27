@@ -313,6 +313,7 @@ function buildCpuCountGraph (gpuCountList) {
 function buildGpuCountGraph (gpuCountList) {
     let element = document.getElementById('gpu-count')
     let context = element.getContext('2d')
+
     let chart = new Chart(context, {
         type: 'doughnut',
         data: {
@@ -328,10 +329,11 @@ function buildGpuCountGraph (gpuCountList) {
                 borderColor: [
                     'rgba(253, 0, 2, 1)',
                     'rgba(0, 113, 197, 1)',
-                    'rgba(116, 183, 27, 1)',
+                    'rgba(116, 183, 27, 1)'
                 ],
                 borderWidth: 1,
             }],
+            
         },
         options: {
             scales: {
@@ -340,9 +342,6 @@ function buildGpuCountGraph (gpuCountList) {
                         beginAtZero: true
                     }
                 }]
-            },
-            legend: {
-                display: false
             },
         }
     })
