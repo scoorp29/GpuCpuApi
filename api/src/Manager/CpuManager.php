@@ -24,6 +24,11 @@ class CpuManager
         return $this->cpuRepository->findAll();
     }
 
+    public function getCount()
+    {
+        return $this->cpuRepository->getCpuByCompany();
+    }
+
     //We test if all the conditions are fulfilled (Assert in Entity / User)
     public function validateMyPostAssert(ConstraintViolationListInterface $validationErrors)
     {

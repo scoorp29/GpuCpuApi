@@ -19,6 +19,14 @@ class GpuRepository extends ServiceEntityRepository
         parent::__construct($registry, Gpu::class);
     }
 
+    public function getGpuByCompany(){
+        return $this->createQueryBuilder('g')
+            ->select('g.company, COUNT(g) as count')
+            ->groupBy('g.company')
+            ->getQuery()
+            ->getScalarResult();
+    }
+
     // /**
     //  * @return Gpu[] Returns an array of Gpu objects
     //  */

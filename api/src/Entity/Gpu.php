@@ -41,18 +41,6 @@ class Gpu
      * @ORM\Column(type="string", length=255, nullable=true)
      * @Groups("gpu")
      */
-    private $release_date;
-
-    /**
-     * @ORM\Column(type="integer", nullable=true)
-     * @Groups("gpu")
-     */
-    private $release_year;
-
-    /**
-     * @ORM\Column(type="string", length=255, nullable=true)
-     * @Groups("gpu")
-     */
     private $bus;
 
     /**
@@ -60,18 +48,6 @@ class Gpu
      * @Groups("gpu")
      */
     private $memory;
-
-    /**
-     * @ORM\Column(type="string", length=255, nullable=true)
-     */
-
-    private $memory_type;
-
-    /**
-     * @ORM\Column(type="string", length=255, nullable=true)
-     * @Groups("gpu")
-     */
-    private $memory_bit;
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
@@ -85,23 +61,11 @@ class Gpu
      */
     private $memory_clock;
 
-    /**
-     * @ORM\Column(type="integer", nullable=true)
+     /**
+     * @ORM\Column(type="string", length=255, nullable=true)
      * @Groups("gpu")
      */
-    private $shaders;
-
-    /**
-     * @ORM\Column(type="integer", nullable=true)
-     * @Groups("gpu")
-     */
-    private $tmus;
-
-    /**
-     * @ORM\Column(type="integer", nullable=true)
-     * @Groups("gpu")
-     */
-    private $rops;
+    private $release_date;
 
     public function getId(): ?int
     {
@@ -144,30 +108,6 @@ class Gpu
         return $this;
     }
 
-    public function getReleaseDate(): ?string
-    {
-        return $this->release_date;
-    }
-
-    public function setReleaseDate(?string $release_date): self
-    {
-        $this->release_date = $release_date;
-
-        return $this;
-    }
-
-    public function getReleaseYear(): ?int
-    {
-        return $this->release_year;
-    }
-
-    public function setReleaseYear(?int $release_year): self
-    {
-        $this->release_year = $release_year;
-
-        return $this;
-    }
-
     public function getBus(): ?string
     {
         return $this->bus;
@@ -188,30 +128,6 @@ class Gpu
     public function setMemory(string $memory): self
     {
         $this->memory = $memory;
-
-        return $this;
-    }
-
-    public function getMemoryType(): ?string
-    {
-        return $this->memory_type;
-    }
-
-    public function setMemoryType(?string $memory_type): self
-    {
-        $this->memory_type = $memory_type;
-
-        return $this;
-    }
-
-    public function getMemoryBit(): ?string
-    {
-        return $this->memory_bit;
-    }
-
-    public function setMemoryBit(?string $memory_bit): self
-    {
-        $this->memory_bit = $memory_bit;
 
         return $this;
     }
@@ -240,38 +156,14 @@ class Gpu
         return $this;
     }
 
-    public function getShaders(): ?int
+    public function getReleaseDate(): ?string
     {
-        return $this->shaders;
+        return $this->release_date;
     }
 
-    public function setShaders(?int $shaders): self
+    public function setReleaseDate(?string $release_date): self
     {
-        $this->shaders = $shaders;
-
-        return $this;
-    }
-
-    public function getTmus(): ?int
-    {
-        return $this->tmus;
-    }
-
-    public function setTmus(?int $tmus): self
-    {
-        $this->tmus = $tmus;
-
-        return $this;
-    }
-
-    public function getRops(): ?int
-    {
-        return $this->rops;
-    }
-
-    public function setRops(?int $rops): self
-    {
-        $this->rops = $rops;
+        $this->release_date = $release_date;
 
         return $this;
     }

@@ -19,6 +19,14 @@ class CpuRepository extends ServiceEntityRepository
         parent::__construct($registry, Cpu::class);
     }
 
+    public function getCpuByCompany(){
+        return $this->createQueryBuilder('c')
+            ->select('c.company, COUNT(c) as count')
+            ->groupBy('c.company')
+            ->getQuery()
+            ->getScalarResult();
+    }
+
     // /**
     //  * @return Cpu[] Returns an array of Cpu objects
     //  */
