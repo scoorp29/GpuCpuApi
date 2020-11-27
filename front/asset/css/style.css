@@ -230,4 +230,9 @@ body
     {
         padding-left: 10px;
     }
+    
+    .graph-row
+    {
+        flex-direction: column;
+    }
 }
