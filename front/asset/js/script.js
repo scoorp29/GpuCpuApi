@@ -113,8 +113,18 @@ function generateRow(data, forbiddenColumns) {
     return row
 }
 
+function removeChilds (element) {
+    while (element.firstChild) {
+        element.removeChild(element.lastChild);
+    }
+}
+
 // warning : handle no first item
 function generateTable (table, dataList) {
+    if (!dataList) {
+        return
+    }
+    removeChilds(table)
     table.classList.add('table')
     forbiddenColumns = ['id']
 
@@ -145,36 +155,57 @@ function generateTable (table, dataList) {
 
 function fillCpu () {
     let cpuTable = document.getElementById('cpu-table')
-    // this code was without ajax request
-    let cpuList = getCpuList()
-    generateTable(cpuTable, cpuList)
-
-    // $.ajax({
-    //     url: 'https://api-cpu-gpu.itcommunity.fr/api/cpu',
-    //     method: 'GET',
-    //     dataType: 'json'
-    // }).done(response => {
-    //     let cpuList = JSON.stringify(response)
-    //     console.log('done')
-    //     console.log(cpuList)
-    //     generateTable(cpuTable, cpuList)
-    // })
+    let cpuList
+    $.ajax({
+        url: 'https://api-cpu-gpu.itcommunity.fr/api/cpu',
+        type: 'GET',
+        method: 'GET',
+        dataType: 'jsonp',
+    }).done(response => {
+        cpuList = JSON.stringify(response)
+        generateTable(cpuTable, cpuList)
+    }).fail( (jqXHR, textStatus, errorThrown) => {
+        console.warn('AJAX error /api/cpu')
+        cpuList = getCpuList()
+        generateTable(cpuTable, cpuList)
+    })
 }
 
 function fillGpu () {
     let gpuTable = document.getElementById('gpu-table')
-    let gpuList = getGpuList()
-    generateTable(gpuTable, gpuList)
+    let gpuList
+
+    $.ajax({
+        url: 'https://api-cpu-gpu.itcommunity.fr/api/gpu',
+        type: 'GET',
+        method: 'GET',
+        dataType: 'jsonp',
+    }).done(response => {
+        cpuList = JSON.stringify(response)
+        generateTable(gpuTable, cpuList)
+    }).fail( (jqXHR, textStatus, errorThrown) => {
+        console.warn('AJAX error /api/gpu')
+        gpuList = getGpuList()
+        generateTable(gpuTable, gpuList)
+    })
+}
+
+function init () {
+    $.ajaxSetup({
+        crossDomain: true,
+        crossOrigin: true,
+        url: 'https://api-cpu-gpu.itcommunity.fr/api/',
+        global: false,
+    })
 }
 
 function onLoad () {
+    init()
     fillCpu()
     fillGpu()
-    
-    let selectorList = ['#cpu-table', '#gpu-table']
-    selectorList.map(selector => {
-        let $element = $(selector)
-        $element.tablesorter()
+
+    ;['#cpu-table', '#gpu-table'].map(selector => {
+        $(selector).tablesorter()
     })
 }
 
